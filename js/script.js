@@ -1,16 +1,16 @@
 const contacts = users;
 const button = document.getElementById("btn");
+const ul = document.getElementsByClassName("contact-list")[0];
 const totalContacts = contacts.length;
 
 displayAllContacts();
-
+pagination();
 // function getContacts() {
 //   for (var i = 0; i < contacts.length; i++) console.log(contacts[i]);
 //   return contacts;
 // }
 
 function displayAllContacts() {
-  const ul = document.getElementsByClassName("contact-list")[0];
   //const image = document.getElementsByClassName("avatar")[0];
   //const name = document.getElementsByTagName("h3")[1];
   //const emailSpan = document.getElementsByTagName("span")[0];
@@ -60,8 +60,29 @@ function displayAllContacts() {
 
 // button.addEventListener("click", getContacts);
 
-function pagination() {
-  const numbers = `<div class="pagination">
-            <ul id="pagination li"></ul> </div>`;
+function btnShow () {
+    var paginationUl = document.getElementById("pagination li");
+    //  Calculating the how many pages will be needed
+    var pages = Math.ceil(contentsNum / showContents); 
+    for (var i = 0; i < pages; i++) {
+      var li = document.createElement('li');
+      li.onclick = (function (j) { return function () {showPage(j);} }(i)); 
+  
+      // show the specific pages
+      var textnode = document.createTextNode(i + 1); 
+      li.appendChild(textnode);
+      paginationUl.appendChild(li);
+    }
+  }
+  
 
+function pagination() {
+  const pageUl = document.getElementById("pagination li");
+  const pages = Math.ceil(totalContacts / 10);
+    for (var i = 0; i < pages; i++) {
+        let li = document.createElement('li');
+        var textnode = document.createTextNode(i + 1);
+        li.appendChild(textnode);
+        pageUl.appendChild(li);
+    }
 }
